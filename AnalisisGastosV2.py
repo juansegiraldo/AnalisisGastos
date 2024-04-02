@@ -6,6 +6,12 @@ from io import BytesIO
 import base64
 import time
 from CategoryMapping import CategoryMapping
+import locale
+import re
+
+# Set locale to format numbers as pounds sterling
+locale.setlocale(locale.LC_ALL, 'en_GB.UTF-8')
+
 
 # Upload the CSV file
 uploaded_file = st.file_uploader("Upload your Revolut Statement CSV file", type="csv")
@@ -40,28 +46,24 @@ month_order = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'O
 ## Streamlit app
 st.title('Expense Analysis')
 
-# ## Table with the information for each Category with the columns "Category" "Amount"
-# category_table = df.groupby('Category')['Amount'].sum().reset_index()
-# category_table['Amount'] = category_table['Amount'].round(2)
-# category_table = category_table.merge(monthly_average, on='Category', how='left')
-# st.markdown("## Amount by Category")
-# AgGrid(category_table, sortable=True, filter=False)
 
 def get_category_table(df):
     category_table = df.groupby('Category')['Amount'].sum().reset_index()
-    category_table['Amount'] = category_table['Amount'].round(2)
     category_table = category_table.merge(monthly_average, on='Category', how='left')
+    category_table = category_table.sort_values('Monthly Average', ascending=True)  # Sort by 'Monthly Average' in ascending order
     return category_table
 
 # Generate the category table
 category_table = get_category_table(df)
 
-# Introduce a delay
-time.sleep(2)
+# Format numbers as pounds sterling
+category_table['Amount'] = category_table['Amount'].map(lambda x: locale.currency(x, grouping=True)[:-3])
+category_table['Monthly Average'] = category_table['Monthly Average'].map(lambda x: locale.currency(x, grouping=True)[:-3])
 
 # Display the category table
 st.markdown("## Amount by Category")
-AgGrid(category_table, sortable=True, filter=False)
+st.markdown(category_table.style.hide(axis="index").to_html(), unsafe_allow_html=True)
+
 
 def get_category_table_download_link(df):
     """Generates a link allowing the data in a given panda dataframe to be downloaded
@@ -81,8 +83,9 @@ def get_category_table_download_link(df):
 # this will display a download link for the above dataframe
 st.markdown(get_category_table_download_link(category_table), unsafe_allow_html=True)
 
-## Multiselect dropdown for category
-selected_categories = st.multiselect('Select categories', sorted(df['Category'].unique()))
+# Get the list of sorted unique categories
+unique_categories = sorted(df['Category'].unique())
+selected_categories = st.multiselect('Select categories', unique_categories, default=unique_categories)
 
 # Filter data by selected categories
 filtered_data = df[df['Category'].isin(selected_categories)]
@@ -139,9 +142,9 @@ with col2:
 st.markdown("## Detail for Selected Categories")
 table = filtered_data[['Category', 'Description', 'Amount', 'Started Date']].copy()
 table['Started Date'] = table['Started Date'].dt.strftime('%d-%b-%Y')
+table['Amount'] = table['Amount'].map(lambda x: '£{:,.2f}'.format(abs(float(re.sub(r'[^\d.-]', '', locale.currency(x, grouping=True))))) if x >= 0 else '-£{:,.2f}'.format(abs(float(re.sub(r'[^\d.-]', '', locale.currency(x, grouping=True))))))
+st.markdown(table.style.hide(axis="index").to_html(), unsafe_allow_html=True)
 
-# Use the ag-grid library to create an interactive table
-AgGrid(table, sortable=True, filter=True)
 
 def get_table_download_link(df):
     """Generates a link allowing the data in a given panda dataframe to be downloaded
@@ -160,3 +163,4 @@ def get_table_download_link(df):
 
 # this will display a download link for the above dataframe
 st.markdown(get_table_download_link(df), unsafe_allow_html=True)
+
