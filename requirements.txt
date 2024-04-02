@@ -4,3 +4,5 @@ streamlit
 streamlit-aggrid
 openpyxl
 xlsxwriter
+locale
+re
