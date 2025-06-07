@@ -29,17 +29,71 @@
     </div>
 
     <div class="section">
-        <h2>3. Predicción por material usando el método de Croston</h2>
+        <h2>3. Análisis de pertinencia de Series Temporales</h2>
+        <p>Se analizó la pertinencia de series teemporales clásicas como el Prophet y el ARIMA y series de demanda intermitente como Croston.</p>
+        <img src="MedodosSeriesTemporales.png" alt="Análisis de métodos de series temporales" style="width: 50%;">
+        <div class="caption">Gráfica: Análisis de métodos de series temporales</div>
+    </div>
+
+    <div class="section">
+        <h2>4. Predicción por material usando el método de Croston</h2>
         <p>Para cada material, se aplicó el método de Croston, especializado en series temporales intermitentes, para predecir la demanda futura. Se muestran los resultados de la predicción para los diferentes materiales.</p>
         <img src="croston a los diferentes materiales.png" alt="Predicción Croston por material">
         <div class="caption">Gráfica: Predicción de demanda usando Croston</div>
     </div>
 
     <div class="section">
-        <h2>4. Tabla y gráfica de previsiones</h2>
-        <p>Finalmente, se presentan la tabla y la gráfica de previsiones generadas por el modelo, permitiendo comparar visualmente las predicciones con los datos reales.</p>
-        <img src="predicciones croston por material.png" alt="Tabla y gráfica de previsiones">
-        <div class="caption">Gráfica: Previsiones por material</div>
+        <h2>5. Predicciones Detalladas por Producto</h2>
+        <table style="width: 100%; border-collapse: collapse; margin-top: 20px;">
+            <thead>
+                <tr style="background-color: #f5f5f5;">
+                    <th style="padding: 12px; text-align: left; border-bottom: 2px solid #ddd;">Producto</th>
+                    <th style="padding: 12px; text-align: right; border-bottom: 2px solid #ddd;">Predicción Semanal Croston</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td style="padding: 10px; border-bottom: 1px solid #ddd;">PATE DE FRANGO 125 GRS.</td>
+                    <td style="padding: 10px; text-align: right; border-bottom: 1px solid #ddd;">686.40</td>
+                </tr>
+                <tr>
+                    <td style="padding: 10px; border-bottom: 1px solid #ddd;">PATE ERVAS FINAS 125 GRS.</td>
+                    <td style="padding: 10px; text-align: right; border-bottom: 1px solid #ddd;">1,647.36</td>
+                </tr>
+                <tr>
+                    <td style="padding: 10px; border-bottom: 1px solid #ddd;">PATE DE SALMAO 125G</td>
+                    <td style="padding: 10px; text-align: right; border-bottom: 1px solid #ddd;">1,501.50</td>
+                </tr>
+                <tr>
+                    <td style="padding: 10px; border-bottom: 1px solid #ddd;">PATE DE ATUM 125 GRS.</td>
+                    <td style="padding: 10px; text-align: right; border-bottom: 1px solid #ddd;">5,229.98</td>
+                </tr>
+                <tr>
+                    <td style="padding: 10px; border-bottom: 1px solid #ddd;">PATE IBERICO 125 GRS.</td>
+                    <td style="padding: 10px; text-align: right; border-bottom: 1px solid #ddd;">2,325.63</td>
+                </tr>
+                <tr>
+                    <td style="padding: 10px; border-bottom: 1px solid #ddd;">SALSICHAO FUET EXTRA</td>
+                    <td style="padding: 10px; text-align: right; border-bottom: 1px solid #ddd;">18,096.00</td>
+                </tr>
+                <tr>
+                    <td style="padding: 10px; border-bottom: 1px solid #ddd;">EXPOSITOR FUET EXTRA</td>
+                    <td style="padding: 10px; text-align: right; border-bottom: 1px solid #ddd;">2,217.39</td>
+                </tr>
+                <tr>
+                    <td style="padding: 10px; border-bottom: 1px solid #ddd;">SALSICHAO FUET EXTRA AMANHECER 180g</td>
+                    <td style="padding: 10px; text-align: right; border-bottom: 1px solid #ddd;">1,779.00</td>
+                </tr>
+                <tr>
+                    <td style="padding: 10px; border-bottom: 1px solid #ddd;">PIZZA FRESCA FRANGO</td>
+                    <td style="padding: 10px; text-align: right; border-bottom: 1px solid #ddd;">20,874.00</td>
+                </tr>
+                <tr>
+                    <td style="padding: 10px; border-bottom: 1px solid #ddd;">PIZZA CARBONARA FRESCA</td>
+                    <td style="padding: 10px; text-align: right; border-bottom: 1px solid #ddd;">27,677.00</td>
+                </tr>
+            </tbody>
+        </table>
     </div>
 
 </body>
